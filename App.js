@@ -42,7 +42,7 @@ export default function App() {
         />
         <Stack.Screen
           name="Reset"
-          component={Reset}
+          component={ResetScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

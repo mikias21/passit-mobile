@@ -80,7 +80,10 @@ export default function SigninScreen({ navigation }) {
             <Text style={styles.footer_link_p}>Create Account?</Text>
             <Text style={styles.footer_link}>Sign up</Text>
           </Pressable>
-          <Pressable style={styles.footer_link_two}>
+          <Pressable
+            style={styles.footer_link_two}
+            onPress={() => navigation.navigate("Recover")}
+          >
             <Text style={styles.footer_link_p}>Forgot password?</Text>
             <Text style={styles.footer_link}>Help</Text>
           </Pressable>

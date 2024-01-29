@@ -30,7 +30,12 @@ const ActivateScreen = ({ navigation }) => {
         <View style={styles.activate_form}>
           <View style={styles.pin_form}>
             <Text style={styles.pin_label}>PIN code</Text>
-            <TextInput keyboardType="email-address" style={styles.pin_input} />
+            <TextInput keyboardType="number-pad" style={styles.pin_input} />
+          </View>
+          <View style={styles.button_container}>
+            <Pressable style={styles.button_pressable}>
+              <Text style={styles.button_text}>Activate Account</Text>
+            </Pressable>
           </View>
           <View style={styles.footer_links}>
             <Pressable

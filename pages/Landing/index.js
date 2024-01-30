@@ -1,9 +1,19 @@
+import { useState } from "react";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
-import { Pressable, Text, View, ImageBackground } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  Pressable,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  useColorScheme,
+} from "react-native";
+import TypeWriter from "react-native-typewriter/components/typewriter";
 
 // Icons
+import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 // Styles
@@ -15,6 +25,22 @@ export default function LandingScreen({ navigation }) {
     "Poppins-Regular": require("../../assets/fonts/Poppins/Poppins-Regular.ttf"),
   });
 
+  const colorScheme = useColorScheme();
+  const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
+  // const themeTextStyle =
+  //   colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+  // const themeContainerStyle =
+  //   colorScheme === "light"
+  //     ? styles.lightThemeContainer
+  //     : styles.darkThemeContainer;
+
+  const themeTextStyle =
+    isDarkMode === true ? styles.darkThemeText : styles.lightThemeText;
+  const themeContainerStyle =
+    isDarkMode === true
+      ? styles.darkThemeContainer
+      : styles.lightThemeContainer;
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
@@ -25,28 +51,66 @@ export default function LandingScreen({ navigation }) {
     return null;
   }
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <ImageBackground
-        source={require("../../assets/images/blurry_background.png")}
-        style={styles.backgroundImage}
+        source={`${
+          !isDarkMode
+            ? require("../../assets/images/blurry_background.png")
+            : require("../../assets/images/blurry_background_dark.png")
+        }`}
+        style={[styles.backgroundImage, themeContainerStyle]}
       >
-        <View style={styles.dark_mode_container}>
-          <MaterialIcons name="dark-mode" size={24} color="black" />
-        </View>
-        <View style={styles.container}>
+        <Pressable style={styles.dark_mode_container} onPress={toggleDarkMode}>
+          {isDarkMode ? (
+            <Entypo
+              name="light-down"
+              size={30}
+              color="black"
+              style={[themeTextStyle]}
+            />
+          ) : (
+            <MaterialIcons
+              name="dark-mode"
+              size={24}
+              color="black"
+              style={[themeTextStyle]}
+            />
+          )}
+        </Pressable>
+        <View style={[styles.container]}>
           <View>
+            <View style={styles.image_container}>
+              <Image
+                style={styles.image_logo}
+                source={`${
+                  !isDarkMode
+                    ? require("../../assets/images/logo-no-background.png")
+                    : require("../../assets/images/logo-white.png")
+                }`}
+              />
+            </View>
             <View style={styles.header_one_container}>
-              <Text style={styles.header_one}>Welcome to</Text>
+              <Text style={[styles.header_one, themeTextStyle]}>
+                Welcome to
+              </Text>
               <Text>
                 <Text style={styles.header_one_sub_one}>pass</Text>
-                <Text style={styles.header_one_sub_dot}>.</Text>
+                <Text style={[styles.header_one_sub_dot, themeTextStyle]}>
+                  .
+                </Text>
                 <Text style={styles.header_one_sub_two}>it</Text>
               </Text>
             </View>
-            <Text style={styles.paragraph_one}>
-              Securly store you passwords and access everywhere.
-            </Text>
+            <TypeWriter typing={1}>
+              <Text style={[styles.paragraph_one, themeTextStyle]}>
+                Store you passwords in a secure way and access everywhere.
+              </Text>
+            </TypeWriter>
           </View>
           <View style={styles.button_container}>
             <Pressable
@@ -57,7 +121,7 @@ export default function LandingScreen({ navigation }) {
             </Pressable>
           </View>
           <Pressable onPress={() => navigation.navigate("Signin")}>
-            <Text style={styles.button_two_link}>
+            <Text style={[styles.button_two_link, themeTextStyle]}>
               Already have an account ?
             </Text>
           </Pressable>

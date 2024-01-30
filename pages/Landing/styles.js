@@ -16,6 +16,19 @@ export default styles = StyleSheet.create({
     paddingRight: 30,
   },
 
+  image_container: {
+    display: "flex",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 100,
+  },
+
+  image_logo: {
+    width: 130,
+    height: 130,
+  },
+
   container: {
     marginTop: 130,
     marginLeft: "auto",
@@ -84,5 +97,21 @@ export default styles = StyleSheet.create({
     fontSize: 14,
     textDecorationLine: "underline",
     fontFamily: "Poppins-Regular",
+  },
+
+  lightThemeText: {
+    color: "#111",
+  },
+
+  darkThemeText: {
+    color: "whitesmoke",
+  },
+
+  lightThemeContainer: {
+    backgroundColor: "white",
+  },
+
+  darkThemeContainer: {
+    backgroundColor: "#111",
   },
 });
